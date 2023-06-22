@@ -114,6 +114,48 @@ img = cv.imread('messi5.jpg',-1)
 
 		</p>
 		<h3> Parte 2B </h3>
+		<h4> Código Original</h4>
+		<pre><code class="python">
+import time
+import numpy as np
+import cv2 as cv
+
+cap = cv.VideoCapture('big_buck_bunny.mp4')
+
+while(cap.isOpened()):
+    ret, frame = cap.read()
+    
+    if ret==True:
+        # show the frame
+        cv.imshow('frame',frame)
+
+        #wait next frame by 40ms - 25fps
+        time.sleep(1/25.0) 
+        
+        if cv.waitKey(1) & 0xFF == ord('q'):
+            break
+    else:
+        break
+		</code></pre>
+		<p> O Código acima le um arquivo de vídeo com a função cv.VideoCapture() (ela também poderia ser usada para ler o vídeo de uma camera ou outra fonte).
+			<br> Depois, vai exibir um frame de cada vez enquanto o usuário não fechar o programa apertando 'q'.
+			O frame exibido na tela só é atualizado com a função cv.imshow(), como entre cada chamada dessa função o programa congela por meio da função time.sleep(), sendo seu arquivomento esse tempo em segundos, que no caso acima é de 40ms.
+		</p>
+
+		<br>
+		<p> Reduzindo o valor do argumento da função sleep, as imagens são exibidas mais rapidamente. No código abaixo diminuimos o tempo entre as imagens para 10ms</p>
+		<pre><code class="python">
+        #wait next frame by 10ms - 100fps
+        time.sleep(1/100.0) 
+		</code></pre>
+		<p> Aumentando o valor do argumento da função sleep, as imagens são exibidas mais lentamente. No código abaixo aumentamos o tempo entre as imagens para 100ms</p>
+		<pre><code class="python">
+        #wait next frame by 100ms - 10fps
+        time.sleep(1/10.0) 
+		</code></pre>
+               
+cap.release()
+cv.destroyAllWindows()
 		<h3> Parte 2C </h3>
 		<h3> Parte 2D </h3>
 		<h3> Parte 3A </h3>
