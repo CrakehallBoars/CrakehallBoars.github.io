@@ -136,8 +136,10 @@ while(cap.isOpened()):
             break
     else:
         break
+cap.release()
+cv.destroyAllWindows()
 		</code></pre>
-		<p> O Código acima le um arquivo de vídeo com a função cv.VideoCapture() (ela também poderia ser usada para ler o vídeo de uma camera ou outra fonte).
+		<p> O Código acima le um arquivo de vídeo com a função cv.VideoCapture() (ela também poderia ser usada para ler o vídeo de uma câmera ou outra fonte).
 			<br> Depois, vai exibir um frame de cada vez enquanto o usuário não fechar o programa apertando 'q'.
 			O frame exibido na tela só é atualizado com a função cv.imshow(), como entre cada chamada dessa função o programa congela por meio da função time.sleep(), sendo seu arquivomento esse tempo em segundos, que no caso acima é de 40ms.
 		</p>
@@ -154,9 +156,64 @@ while(cap.isOpened()):
         time.sleep(1/10.0) 
 		</code></pre>
                
+		<h3> Parte 2C </h3>
+		<h4> Código Original</h4>
+
+		<pre><code class="python">
+import numpy as np
+import cv2 as cv
+
+cap = cv.VideoCapture(0)
+
+if not cap.isOpened():
+    print("Cannot open camera")
+    exit()
+    
+while True:
+    # Capture frame-by-frame
+    ret, frame = cap.read()
+    # if frame is read correctly ret is True
+    if not ret:
+        print("Can't receive frame (stream end?). Exiting ...")
+        break
+    
+    # Display the resulting frame
+    cv.imshow('frame', frame)
+    
+    if cv.waitKey(1) == ord('q'):
+        break
+
+# When everything done, release the capture
 cap.release()
 cv.destroyAllWindows()
-		<h3> Parte 2C </h3>
+		</code></pre>
+		<p> O código acima é análogo ao código original da Parte 2B, só difere em ler as imagens da câmera e não de um arquivo de vídeo.</p>
+
+		<p>Para que este código salve imagens no arquivo "foto1.png" quando a tecla 'x' for apertada, basta adicionar as seguintes linhas de código dentro do while True:
+		<pre><code class="python">
+    if cv.waitKey(1) == ord('x'):
+        cv.imwrite("foto1.png",img)
+		</code></pre>
+		Este if só será executado quando o usuário apertar a tecla x, e quando isso acontecer, vai usar a função cv.imwrite() para armazenar o frame atual lido na câmera no arquivo "foto1.png", primeiro argumento da função. </p>
+
+	</p> Para coletar as imagens da Parte 3A, acabamos fazendo algumas adições extras neste programa.
+
+		<pre><code class="python">
+	    key = cv.waitKey(1) 
+		</code></pre>
+		A primeira consiste em armazenar o código ascii da tecla apertada(retorno da função waitKey(1)) na variavel key, para poder comparar posteriormente.
+
+		<pre><code class="python">
+    if(key != -1):
+        time.sleep(5)
+        ret, frame = cap.read()
+        cv.imwrite(f"fotos/{key}.png", frame)
+		</code></pre>
+
+		A segunda consiste em sempre que uma tecla for apertada, esperar 5s, capturar um frame novo da camera novamente e salva-lo em um arquivo com o código ascii da tecla apertada(idealmente converteriamos para o caractere, mas não tivemos tempo). 
+		Esse tempo extra nos permitia mover para a tela de gravação depois de apertar a tecla, que estava um pouco distante do computador. E salvar em um arquivo com o nome baseado na tecla nos permitia salvar imagens diferentes sem trabalho extra.
+
+
 		<h3> Parte 2D </h3>
 		<h3> Parte 3A </h3>
 		<h3> Parte 3B </h3>
