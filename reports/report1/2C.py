@@ -32,7 +32,7 @@ while True:
 
     ### Salva o frame atual gravado na camera no arquivo
     if (key == ord('x')):
-        cv.imwrite("Foto.png", frame)
+        cv.imwrite("foto1.png", frame)
     ###
     
 
