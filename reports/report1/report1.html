@@ -215,6 +215,62 @@ cv.destroyAllWindows()
 
 
 		<h3> Parte 2D </h3>
+		<h4> Código Original</h4>
+		<pre><code class="python">
+import numpy as np
+import cv2 as cv
+cap = cv.VideoCapture(0)
+
+# Get current width of frame
+width = cap.get(cv.CAP_PROP_FRAME_WIDTH)   # float
+# Get current height of frame
+height = cap.get(cv.CAP_PROP_FRAME_HEIGHT) # float
+# Define Video Frame Rate in fps
+fps = 10.0
+
+# Define the codec and create VideoWriter object
+fourcc = cv.VideoWriter_fourcc(*'XVID')
+out = cv.VideoWriter('saida.avi', fourcc, fps, (int(width),int(height)) )
+
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        print("Can't receive frame (stream end?). Exiting ...")
+        break
+    frame = cv.flip(frame, 0)
+    # write the flipped frame
+    out.write(frame)
+    cv.imshow('frame', frame)
+    if cv.waitKey(1) == ord('q'):
+        break
+
+# Release everything if job is finished
+cap.release()
+out.release()
+cv.destroyAllWindows()
+		</code></pre>
+
+		<p> O código acima inicia a coneção com uma câmera, depois checa a resolução da mesma. Com os valores de resolução, cria um objeto cv.VideoWriter com o codec XVID para começar a salvar as imagens coletadas na câmera em um vídeo no formato AVI.
+			Feito isso, vai inverter a imagem coletada da câmera ao longo do eixo X com a função cv.flip() todo frame até que a tecla 'q' seja pressionada e o programa seja finalizado.
+			O Segundo argumento da função cv.flip() determina como a imagem passada como primeiro argumento será invertida com base nas seguintes regras:
+		<ul>
+			<li> 0: Rotação ao longo do eixo X</li>
+			<li> >0: Valores positivos rotacionam ao longo do eixo Y</li>
+			<li> &lt;0: Valores negativos rotacionam ao longo de ambos os eixos ao mesmo tempo</li>
+		</ul> 
+		Os frames são salvos no arquivo com base na variavel de fps, por padrão ela salva a 10 fps, o que faz com que o vídeo seja gravado em "slow-motion".
+		
+		Para corrigir a gravação, precisamos comentar a linha que inverte a imagem:
+		<pre><code class="python">
+    #frame = cv.flip(frame, 0)
+		</code></pre>
+		E modificar a taxa de quadros por segundo para 30(valor encontrado experimentalmente):
+		<pre><code class="python">
+fps = 30.0
+		</code></pre>
+		</p>
+
+
 		<h3> Parte 3A </h3>
 		<h3> Parte 3B </h3>
 		<h3> Parte 3C </h3>
