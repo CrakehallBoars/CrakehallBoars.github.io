@@ -17,8 +17,33 @@
 			Este relatório foca em técnicas para mitigar uma forma especifíca de imperfeição, os rúidos. A solução apresentada é baseada em filtros.
 		</p>
 
-		<p>Ao longo deste relatório, serão apresentados os programas elaborados pela equipe para cada etapa, descrevendo as alterações realizadas e as soluções adotadas.</p>
 		<h2> 2.Fundamentos Básicos</h2>
+
+		<h3> Filtros </h3>
+		<p>
+			Filtros consistem em algoritimos que são aplicados em imagens representadas como matrizes bidimensionais de inteiros(ou outra representação númerica de cores) que indicam qual a cor em cada ponto da imagem. O OpenCV usa o formato BGR, no qual, para cada ponto, 
+			existe um inteiro de 24 bits representando sua cor, sendo 8 bits para cada componentente Blue, Green, Red, respectivamente.
+
+			Filtros processam as imagens utilizando uma <b>função</b> para determinar a cor após o processamento em cada ponto. Essas funções trabalham em cima de <b>Janelas</b>, ou <b>Kernels</b>, que consistem em outra matriz bidimensional representando a imagem em volta do ponto em 
+			questão a ser processado, o valor final do ponto será determinado pela função e pelos valores originais da janela.
+
+			<h4>Filtro de Média</h4>
+			O Filtro de média calcula o valor final de um ponto como a média simples de todos os pontos dentro da janela. Acaba deixando a imagem borrada principalmente nos cantos das figuras.
+
+			<h4>Filtro de Mediana</h4>
+			Funciona de forma análoga ao filtro de Média, mas em vez de calcular a média entre os pontos da janela, calcula a mediana. Acaba tendo resultados muito bons para remoção de ruído Salt And Pepper.
+
+			<h4>Filtro Gaussiano</h4>
+			Esse filtro também funciona a partir de uma média, mas diferentemente do Filtro de Média, é uma média ponderada. Os pesos são calculados com base na distancia entre os pixels da janela, e o pixel do centro, e essa distancia é normalizada através de uma curva gaussiana.
+
+			<h4>Filtro Bilateral</h4>
+			Esse filtro funciona com base no filtro Gaussiano, mas em vez de considerar apenas a distãncia espacial entre o centro da janela e os pixels para o calculo do peso, ele também usa a diferença de intensidade entre os pontos para calcular o peso.
+			Quanto maior for a diferença entre a cor do ponto e a do centro da janela, menor será a contribuição do ponto em questão para a média gaussiana. Dessa forma os cantos das figuras na imagem não são borrados.
+
+			
+		</p>
+
+		<h2> 3.Materiais e Métodos</h2>
 		<h3>1. Ambiente dos experimentos</h3>
 
 		<p>a) Sistema Operacional:</p>
