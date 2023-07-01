@@ -208,6 +208,12 @@ cap.release()
 cv.destroyAllWindows()
 			</code></pre>	
 
+		<p>Esse código captura vídeo da webcam e segmenta objetos nas cores vermelho, azul e verde em tempo real. Ele exibe o vídeo original e cria três 
+		imagens resultantes com os objetos isolados em cada cor. Também permite salvar os quadros e as imagens resultantes quando a tecla "Q" é 
+		pressionada. Ao pressionar a tecla Esc, o programa é encerrado.</p>
+
+		<p>Usando a função cv.bitwise_and(), as máscaras são aplicadas ao quadro original para isolar os objetos de cada cor. O resultado é armazenado 
+		nas variáveis res_red, res_blue e res_green.</p>
 		
 			<h4> Aplicação de filtros e gravação de vídeo </h4>
 			<pre><code class="python">
