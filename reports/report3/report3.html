@@ -34,6 +34,11 @@
 		RGB, cada pixel é representado por três componentes: vermelho, verde e azul. Já no espaço HSV, o pixel é representado pelo matiz (hue), saturação (saturation) e valor (value). Compreender as 
 		relações entre esses componentes e como eles são mapeados para a representação visual de uma imagem é crucial para o processamento e análise posterior.</p>
 
+		<p>Conceitos importantes:
+		<ul>
+			<li><b>Máscara</b>: Imagem com valores de cores binárias, cada pixel só pode ser totalmente branco ou totalmente preto. </li>
+		</ul> </p>
+
 		<h2> 3.Materiais e Métodos</h2>
 
 		<h3>1. Ambiente dos experimentos</h3>
@@ -56,6 +61,97 @@
 		<p>- Time: Biblioteca para aumentar o tempo para tirar as fotos.</p>
 
 		<h3>3. Código Fonte</h3>
+
+		<p>Todos os códigos abaixo são modificações do seguinte tutorial: https://docs.opencv.org/4.x/df/d9d/tutorial_py_colorspaces.html. 
+			O código apresentado no tutorial define um intervalo de cores em torno do azul,
+			e coloca todos os pixels que se encontram nesse intervalo em uma máscara,
+			posteriormente, usando essa mascará ele cria uma imagem nova tirando todos os pixels que não estejam na mascara,
+			dessa forma acabamos com uma imagem final com apenas os pixels dentro do intervalo definido.
+			Esse procedimnto pode ser usado para extrair um objeto de uma imagem, considerando que ele esteja em um intervalo bem definido e contrastado dentro da imagem. 
+
+		<figure>
+    			<img src='media/Raw.png' />
+    			<figcaption>Imagem original</figcaption>
+		</figure>
+		<figure>
+    			<img src='media/Mask.png' />
+    			<figcaption>Máscara gerada</figcaption>
+		</figure>
+		<figure>
+    			<img src='media/Final.png' />
+    			<figcaption>Máscara aplicada na imagem origianl, extraindo objetos azuiz</figcaption>
+		</figure>
+		
+		</p>
+
+		
+
+		<h4> Captura e gravação em arquivo </h4>
+			<pre><code class="python">
+import cv2 as cv
+import numpy as np
+
+cap = cv.VideoCapture(0)
+counter = 0
+
+# Define a cor a ser rastreada (no exemplo, vermelho)
+target_color = (128, 0, 128)  # BGR format
+
+while True:
+    # Capture frame-by-frame
+    ret, frame = cap.read()
+
+    if not ret:
+        break
+
+    # Convert BGR to HSV
+    hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
+
+    # Define range of target color in HSV
+    target_color_hsv = cv.cvtColor(np.uint8([[target_color]]), cv.COLOR_BGR2HSV)
+    target_hue = target_color_hsv[0][0][0]
+    tolerance = 10  # Adjust this value to allow for some color variation
+
+    lower_color = np.array([target_hue - tolerance, 50, 50])
+    upper_color = np.array([target_hue + tolerance, 255, 255])
+
+    # Threshold the HSV image to get only the target color
+    mask = cv.inRange(hsv, lower_color, upper_color)
+
+    # Bitwise-AND mask and original frame
+    res = cv.bitwise_and(frame, frame, mask=mask)
+
+    # Display the frames
+    cv.imshow('Original', frame)
+    cv.imshow('Mask', mask)
+    cv.imshow('Result', res)
+
+    key = cv.waitKey(1)
+
+    # Save images when the "Q" key is pressed
+    if key == ord('q') or key == ord('Q'):
+        cv.imwrite(f'webcam_image_{counter}.jpg', frame)
+        cv.imwrite(f'mask_image_{counter}.jpg', mask)
+        cv.imwrite(f'result_image_{counter}.jpg', res)
+        counter += 1
+
+    if key == 27:
+        break
+        
+# Release the capture and destroy windows
+cap.release()
+cv.destroyAllWindows()
+			</code></pre>	
+		
+			<h4> Aplicação de filtros e gravação de vídeo </h4>
+			<pre><code class="python">
+				
+			</code></pre>	
+		
+			<h4> Aplicação de filtros e gravação de vídeo </h4>
+			<pre><code class="python">
+				
+			</code></pre>	
 		
 		<h2> 4.Resultados e Análises</h2>
 		
