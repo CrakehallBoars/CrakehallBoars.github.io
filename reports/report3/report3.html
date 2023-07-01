@@ -146,8 +146,13 @@ cv.destroyAllWindows()
 			<p>
 				O Código acima, salva as imagens das 3 etapas do reconhecimento de objetos em 3 arquivos ao se apertar a tecla Q, o nome do arquivo
 				é incrementado com base em um contador, de forma a ser possível salvar múltiplas imagens em apenas uma execução do programa.
-				EXPLICAR SISTEMA DE TARGET COLOR
 			</p>
+
+			<p>Neste código, é feita a conversão do espaço de cores BGR para o espaço de cores HSV usando cv.cvtColor(frame, cv.COLOR_BGR2HSV). O espaço 
+			de cores HSV é mais adequado para segmentar objetos com base em sua cor.</p>
+
+			<p>A cor alvo é convertida para o espaço de cores HSV usando cv.cvtColor(np.uint8([[target_color]]), cv.COLOR_BGR2HSV). Em seguida, o valor 
+			de matiz (H) é extraído para ser usado na definição do intervalo de cor.</p>
 		
 			<h4> Captura de múltiplas cores </h4>
 
