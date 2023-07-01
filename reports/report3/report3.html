@@ -153,6 +153,9 @@ cv.destroyAllWindows()
 
 			<p>A cor alvo é convertida para o espaço de cores HSV usando cv.cvtColor(np.uint8([[target_color]]), cv.COLOR_BGR2HSV). Em seguida, o valor 
 			de matiz (H) é extraído para ser usado na definição do intervalo de cor.</p>
+
+			<p>É definida uma tolerância em torno do valor de matiz da cor alvo para permitir alguma variação de cor. Isso é feito definindo-se lower_color 
+			e upper_color como intervalos mínimos e máximos em relação ao valor de matiz da cor alvo.</p>
 		
 			<h4> Captura de múltiplas cores </h4>
 
