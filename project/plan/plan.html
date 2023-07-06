@@ -16,22 +16,105 @@
 	<h2> Procedimento de Reconhecimento de cartas </h2>
 
 	<p>
-		O Diagrama abaixo mostra todas as etapas previstas para a identificação de uma carta de magic
+		O Diagrama abaixo mostra todos os estágios etapas previstas para a identificação de uma carta de magic
 		na camêra e a exibição de seu scan correspondente na tela.
+		<br> Os estágios podem ser divididos em 3 subsistemas: <b>Entrada/Saída</b>, <b>Separação da Carta</b>,
+		<b>Identificação da Carta</b>. Na seção Arquitetura de Subsistemas eles serão explicados com mais detalhes.
 
 		<br><img src='Spellboar.drawio.png' height='480'/>
 
-		<h3>Etapas</h3>
+		<h3>Estágios</h3>
 			<ol>
-				<l1>Leitura da Câmera:</l1>
-				<l1>Localização da Posição da Carta<l1>
-				<l1>Remoção de Fundo</l1>
-				<l1>Pré-Processamento</l1>
-				<l1>Comparação com imagens de referência</l1>
-				<l1>Exibição da melhor correspondência</l1>
+				<li>Leitura da Câmera: Enviar imagens da camera para o próximo estágio sempre que o usuário clicar na imagem.</li>
+				<li>Localização da Posição da Carta: A partir da posição clicada, identificar a região que a carta clicada está.</li>
+				<li>Remoção de Fundo: Remover o fundo e toda informação irrelevante da imagem, deixando apenas a carta.</li>
+				<li>Pré-Processamento: Aplicar técnicas de processamento de vídeo que facilitem a idenitificação da imagem no próximo estágio.</li>
+				<li>Comparação com imagens de referência: Através de uma técnica de comparação ainda a ser definida, a imagem pré processada será comparada 
+					com as imagens de referencia que a aplicação guarda(por sua vez já pré-processadas) e será determinada qual imagem
+					de referencia é a melhor correspondencia.
+				</li>
+				<li>Exibição da melhor correspondência: Localizada a melhor referencia, ela será exibida em um menu lateral 
+					na interface gráfica.
+				</li>
+
+
 			</ol>
+		
+		<h3>Arquitetura de Subsistemas</h3>
+
+		Cada subsistema terá um um objetivo e responsabilidade bem-definidos, de forma a manter o código
+		modular e organizado.
+		<br>Sendo cada um modelado por pela menos uma classe principal em arquivos separados(IDEIA PRELIMINAR)
+
+		<h4>Entrada/Saída</h4>
+
+		Objetivo: Ler imagens da camera e exibir na tela
+		<br>Responsabilidades:
+		<ul>
+			<li>Gerenciar conexão com a camera</li>
+			<li>Detectar cliques do usuário e a posição deles</li>
+			<li>Enviar imagens da camera para o Subsistema Separação da Carta</li>
+			<li>Receber imagens do Subsistema Identificação da carta</li>
+			<li>Exibir cartas recebidas em uma região separada da interface</li>
+		</ul>
+		
+		<h4>Separação da Carta</h4>
+
+		Objetivo: Isolar a carta alvo do resto da imagem
+		<br>Responsabilidades:
+		<ul>
+			<li>Receber a carta do Subsistema Entrada/Saída</li>
+			<l1>Determinar a região da imagem ocupada pela carta</l1>
+			<li>Remover o fundo da image</li>
+			<l1>Entregar a carta isolada para o Subsistema Identificação da Carta</l1>
+		</ul>
+
+		<h4>Identificação da Carta</h4>
+
+		Objetivo: Ler imagens da camera e exibir na tela
+		<br>Responsabilidades:
+		<ul>
+			<li>Receber a imagem da carta do subsistema Separação da Carta</li>
+			<li>Aplicar o pré-processamento na imagem recebida</li>
+			<li>Armazenar o banco de dados das imagens de referencia</li>
+			<li>Sistema de comparação de imagem</li>
+			<l1>Entregar a carta de referencia para o subsistema Entrada/Saída</l1>
+		</ul>
+
 	</p>
+
+	<h3> Etapas do Desenvolvimento</h3>
 	
+		<h4> Entrada/Saída</h4>
+		<ol>
+			<li>Etapa 1 ... </li>
+			<li>Etapa 2 ... </li>
+			<li>Etapa 3 ... </li>
+		</ol>
+		<h4> Separação da Carta</h4>
+		<ol>
+			<li>Etapa 1 ... </li>
+			<li>Etapa 2 ... </li>
+			<li>Etapa 3 ... </li>
+		</ol>
+		<h4> Identificação da Carta</h4>
+		<ol>
+			<li>Etapa 1 ... </li>
+			<li>Etapa 2 ... </li>
+			<li>Etapa 3 ... </li>
+		</ol>
+	
+	<h3> Padrão de código</h3>
+	O código sendo o principal produto deste projeto, é de extrema importancia que seja organizado. 
+	Para atingir esse objetivo, definimos os seguintes padrões de código que devem ser seguidos durante
+	o desenvolvimento:
+
+		<ul>
+			<li>A ser definido com o time</li>
+		</ul>
+
+
+
 
 	</body>
 </html>
