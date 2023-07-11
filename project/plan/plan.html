@@ -45,7 +45,7 @@
 
 		Cada subsistema terá um um objetivo e responsabilidade bem-definidos, de forma a manter o código
 		modular e organizado.
-		<br>Sendo cada um modelado por pela menos uma classe principal em arquivos separados(IDEIA PRELIMINAR)
+		<br>Sendo cada um modelado por pela menos uma classe principal em arquivos separados
 
 		<h4>Entrada/Saída</h4>
 
@@ -84,38 +84,39 @@
 
 	</p>
 
-	<h3> Etapas do Desenvolvimento</h3>
+	<h3> Milestones do Desenvolvimento</h3>
 	
 		<h4> Entrada/Saída</h4>
 		<ol>
-			<li>Etapa 1 ... </li>
-			<li>Etapa 2 ... </li>
-			<li>Etapa 3 ... </li>
+			<li>Ler imagens da câmera e exibir na tela</li>
+			<li>Detectar Cliques e posição dos cliques</li>
+			<li>(Opcional)Usuário desenhar um quadrado de detecção da carta</li>
+			<li>Exibir cartas de referência em uma seção separada da interface</li>
+			<li>(Opcional) Permitir fixar cartas de referência favoritas</li>
 		</ol>
 		<h4> Separação da Carta</h4>
 		<ol>
-			<li>Etapa 1 ... </li>
-			<li>Etapa 2 ... </li>
-			<li>Etapa 3 ... </li>
+			<li>Encontrar contorno da carta</li>
+			<li>Remover o fundo fora do contorno da carta</li>
+			<li>Recortar a imagem em volta da carta</li>
+			<li>Identificar a carta alvo em um imagem com multiplas cartas</li>
 		</ol>
 		<h4> Identificação da Carta</h4>
 		<ol>
-			<li>Etapa 1 ... </li>
-			<li>Etapa 2 ... </li>
-			<li>Etapa 3 ... </li>
+			<li>Identificar a exata carta de referência 
+				<br><img src="ref_card.jpg" height="300"> </li>
+			<li>Identificar a exata carta de referência com riscos 
+				<br><img src="ref_card_mod.jpg" height="300"> </li>
+			<li>Identificar a foto de uma carta já recortada e bem enquadrada 
+				<br><img src="good_photo.jpg" height="300"> </li>
+			<li>Identificar a foto de uma carta já recortada mal enquadrada 
+				<br><img src="bad_photo.jpg" height="300"> </li>
+			<li>Identificar uma carta plastificada 
+				<br><img src="sleeved_photo.jpg" height="300"> </li>
+			<li>Aplicar pre-processamento para melhorar a taxa de detecção da carta</li>
+			<li>(Opcional) Armazenar as cartas em grupos para acelerar a identificação</li>
+			<li>Sistema de armazenamento de cartas de referência</li>
 		</ol>
 	
-	<h3> Padrão de código</h3>
-	O código sendo o principal produto deste projeto, é de extrema importancia que seja organizado. 
-	Para atingir esse objetivo, definimos os seguintes padrões de código que devem ser seguidos durante
-	o desenvolvimento:
-
-		<ul>
-			<li>A ser definido com o time</li>
-		</ul>
-
-
-
-
 	</body>
 </html>
