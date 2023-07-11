@@ -16,7 +16,7 @@ def plot_histogram(image, title, save_path=None):
         plt.show()
 
 # Leitura da imagem
-image_path = "../media/1/leonardo/leonardo.png"  
+image_path = "../media/1/magic/magic.jpg"  
 
 # Verificar se o arquivo existe
 if not cv2.haveImageReader(image_path):
@@ -35,7 +35,7 @@ gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 # Limiarização
 ret,thresh = cv2.threshold(gray,127,255,cv2.THRESH_BINARY)
 
-# Salvando as imagens em tons de cinza e limiarizada
+# Salva as imagens em tons de cinza e limiarizada
 cv2.imwrite("imagem_cinza.jpg", gray)
 cv2.imwrite("imagem_limiarizada.jpg", thresh)
 

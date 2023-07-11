@@ -1,1 +1,544 @@
+<html>
+	<head>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+
+	</head>
+
+	<body>
+		<h1> Relatório lab 3 </h1>
+
+		<h2> Grupo </h2>
+
+		<p>Leonardo Di Credico </p>
+
+		<p>Anthony Hlebania</p>
+
+		<p>Fernando Hiroaki Suzuki</p>
+
+		<p>Fernando Astolfo Dos Santos</p>
+		
+		<h2> 1.Introdução </h2>
+
+
+		<h2> 2.Fundamentos Básicos</h2>
+
+		<h2> 3.Materiais e Métodos</h2>
+
+		<h3>1. Ambiente dos experimentos</h3>
+
+		<p>a) Sistema Operacional:</p>
+		<p>- Ubuntu (versão 20.22)</p>
+
+		<p>b) Equipamentos:</p>
+		<p>- Computador com webcam integrada</p>
+		<p>- Monitor de exibição</p>
+
+		<h3>2. Programas e Bibliotecas utilizadas</h3>
+
+		<p>a) Programas:</p>
+		<p>- Python: Linguagem de programação utilizada para desenvolver os programas.</p>
+		<p>- CapCut: Software de edição de vídeo utilizado para fazer a união de todos os vídeos em um só com suas respectivas legendas.</p>
+		<p>- HandBrake: Software de compressão de vídeo utilizado para diminuir o tamanho do arquivo de vídeo para o tamanho suportado pelo GitHub. </p>
+
+		<p>b) Bibliotecas:</p>
+		<p>- OpenCV (versão 4.7.0): Biblioteca principal para manipulação de imagens e vídeos.</p>
+		<p>- NumPy (versão 1.21.5): Biblioteca para operações numéricas e processamento de arrays.</p>
+		<p>- Time: Biblioteca para aumentar o tempo para tirar as fotos.</p>
+
+		<h3>3. Código Fonte</h3>
+
+
+		<h4> 1 - Calculo e equalização de histograma </h4>
+
+		<p>O Código abaixo lê uma imagem e a converte em tons de cinza. A partir dai, equaliza seu histograma
+			e salva a imagem em cinza, o histograma antes e depois da equalização.
+			<pre><code class="python">
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+def plot_histogram(image, title, save_path=None):
+    hist = cv2.calcHist([image], [0], None, [256], [0, 256])
+    plt.figure()
+    plt.title(title)
+    plt.xlabel("Pixel Value")
+    plt.ylabel("Frequency")
+    plt.plot(hist)
+    plt.xlim([0, 256])
+    
+    if save_path:
+        plt.savefig(save_path)
+    else:
+        plt.show()
+
+# Leitura da imagem
+image_path = "../media/1/magic/magic.jpg"  
+
+# Verificar se o arquivo existe
+if not cv2.haveImageReader(image_path):
+    raise FileNotFoundError(f"Arquivo da imagem não encontrado: {image_path}")
+
+# Tentar abrir a imagem
+image = cv2.imread(image_path)
+
+# Verificar se a imagem foi carregada corretamente
+if image is None:
+    raise ValueError(f"Falha ao abrir a imagem: {image_path}")
+
+# Conversão para tons de cinza
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Cálculo do histograma antes da equalização
+histogram_path_before = "histograma_before.png"
+plot_histogram(gray, "Histograma antes da equalização", save_path=histogram_path_before)
+
+# Equalização do histograma
+equalized = cv2.equalizeHist(gray)
+
+# Cálculo do histograma após a equalização
+histogram_path_after = "histograma_after.png"
+plot_histogram(equalized, "Histograma após a equalização", save_path=histogram_path_after)
+
+# Salvando as imagens em tons de cinza e equalizada
+cv2.imwrite("imagem_cinza.jpg", gray)
+cv2.imwrite("imagem_equalizada.jpg", equalized)
+
+# Exibição dos gráficos de histograma
+plt.show()
+		</p>
+			</code></pre>
+
+		<h4> 2 - Calculo e equalização de histograma com imagem da câmera</h4>
+
+			<p>O Código abaixo funciona de maneira análoga ao anterior, porém equaliza e salvas as imagens
+				recebidas da câmera , em vez de um arquivo, apenas quando o botão x é pressionado.
+
+			<pre><code class="python">
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+def plot_histogram(image, title, save_path=None):
+    hist = cv2.calcHist([image], [0], None, [256], [0, 256])
+    plt.figure()
+    plt.title(title)
+    plt.xlabel("Pixel Value")
+    plt.ylabel("Frequency")
+    plt.plot(hist)
+    plt.xlim([0, 256])
+
+    if save_path:
+        plt.savefig(save_path)
+    else:
+        plt.show()
+
+def process_image(image):
+    # Conversão para tons de cinza
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    return gray
+
+# Inicialização da webcam
+cap = cv2.VideoCapture(0)
+
+save_images = False
+frame = None
+
+while True:
+    # Capturar um quadro da webcam
+    ret, frame = cap.read()
+
+    # Verificar se o quadro foi capturado corretamente
+    if not ret:
+        print("Erro ao capturar o quadro")
+        break
+
+    gray = process_image(frame)
+
+    # Exibir a imagem cinza em uma janela separada
+    cv2.imshow("Imagem Cinza", gray)
+
+    # Equalizar a imagem cinza
+    equalized = cv2.equalizeHist(gray)
+
+    # Exibir a imagem equalizada em uma janela separada
+    cv2.imshow("Imagem Equalizada", equalized)
+
+    # Verificar se a tecla 'q' foi pressionada para sair
+    if cv2.waitKey(1) == ord('q'):
+        break
+
+    # Verificar se a tecla 'x' foi pressionada para salvar as imagens
+    elif cv2.waitKey(1) == ord('x'):
+        if not save_images:
+            # Salvar a imagem cinza
+            cv2.imwrite("imagem_cinza.jpg", gray)
+
+            # Salvar a imagem equalizada
+            cv2.imwrite("imagem_equalizada.jpg", equalized)
+
+            # Salvar o histograma antes da equalização
+            plot_histogram(gray, "Histograma antes da equalização", save_path="histograma_before.png")
+
+            # Salvar o histograma após a equalização
+            plot_histogram(equalized, "Histograma após a equalização", save_path="histograma_after.png")
+
+        save_images = True
+
+    # Verificar se as imagens e histogramas devem ser salvos
+    if save_images:
+        # Liberação da webcam e fechamento das janelas
+        cap.release()
+        cv2.destroyAllWindows()
+        break
+
+# Liberação da webcam e fechamento das janelas
+cap.release()
+cv2.destroyAllWindows()
+
+			</code></pre>	
+			</p>
+
+		
+		<h4> 3 - Binarização de imagem </h4>
+
+			<p>O Còdigo abaixo recebe uma imagem de um arquivo, converte-a para tons de cinza
+				e aplica a técnica simple de limiarização. Feito isso salva a imagem em cinza
+				e a imagem limiarizada.
+			<pre><code class="python">
+import cv2
+import matplotlib.pyplot as plt
+
+def plot_histogram(image, title, save_path=None):
+    hist = cv2.calcHist([image], [0], None, [256], [0, 256])
+    plt.figure()
+    plt.title(title)
+    plt.xlabel("Pixel Value")
+    plt.ylabel("Frequency")
+    plt.plot(hist)
+    plt.xlim([0, 256])
+    
+    if save_path:
+        plt.savefig(save_path)
+    else:
+        plt.show()
+
+# Leitura da imagem
+image_path = "../media/1/magic/magic.jpg"  
+
+# Verificar se o arquivo existe
+if not cv2.haveImageReader(image_path):
+    raise FileNotFoundError(f"Arquivo da imagem não encontrado: {image_path}")
+
+# Tentar abrir a imagem
+image = cv2.imread(image_path)
+
+# Verificar se a imagem foi carregada corretamente
+if image is None:
+    raise ValueError(f"Falha ao abrir a imagem: {image_path}")
+
+# Conversão para tons de cinza
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Limiarização
+ret,thresh = cv2.threshold(gray,127,255,cv2.THRESH_BINARY)
+
+# Salva as imagens em tons de cinza e limiarizada
+cv2.imwrite("imagem_cinza.jpg", gray)
+cv2.imwrite("imagem_limiarizada.jpg", thresh)
+
+# Exibição dos gráficos de histograma
+plt.show()
+
+			</code></pre>	
+			</p>
+
+		<h4> 4 - Equalização de histograma colorido </h4>
+			<p>Esse Código funciona de forma similar ao "Calculo e equalização de histograma", porém não há
+				conversão para escala de cinza, cada canal de cor (BGR) é separado e a equalização de histograma
+				é aplicada individualmente. Feito isso, os canais são novamente reunidos, formando uma imagem colorida
+				equalizada. Ele salva essa imagem lado a lado com a original, e os histogramas antes e depois da equalização.
+			<pre><code class="python">
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+def plot_bgr_histogram(image: np.ndarray, filename: str) -> None:
+    colors = ('b','g','r')
+    for i,col in enumerate(colors):
+        histr = cv2.calcHist([image],[i],None,[256],[0,256])
+        plt.plot(histr,color = col)
+        plt.xlim([0,256])
+    plt.show()
+    plt.savefig(filename)
+
+# Leitura da imagem
+image_path = "../media/1/magic/magic.jpg"  
+
+# Verificar se o arquivo existe
+if not cv2.haveImageReader(image_path):
+    raise FileNotFoundError(f"Arquivo da imagem não encontrado: {image_path}")
+
+# Tentar abrir a imagem
+image = cv2.imread(image_path)
+
+# Verificar se a imagem foi carregada corretamente
+if image is None:
+    raise ValueError(f"Falha ao abrir a imagem: {image_path}")
+
+# Separa a imagens nos canais de cor BGR
+channels = cv2.split(image)
+
+equalized_channels = []
+# Aplica a equalização de histograma canal a canal
+for channel in channels:
+    equalized_channels.append(cv2.equalizeHist(channel))
+
+# Junta novamente os canais de cor separados após a equalização
+equalized_image = cv2.merge(equalized_channels)
+
+# Calcula histogramas em todos os canais de cor e salva em arquivos
+plot_bgr_histogram(image, "raw_histogram.png")
+plot_bgr_histogram(equalized_image, "equalized_histogram.png")
+
+# Coloca a imagem original e a equalizada lado a lado e grava no arquivo final.png
+final_image = np.hstack((image, equalized_image))
+
+cv2.imwrite("final.png", final_image)
+
+			</code></pre>	
+			</p>
+
+		
+		<h2> 4.Resultados e Análises</h2>
+
+		<h3> 1 - Calculo e equalização de histograma </h3>
+
+		<h4>Fernando S.</h4>
+
+			<figure>
+				<img src="media/1/fernando_s/eu.jpeg" height="480"/>
+				<figcaption>Original</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/1/fernando_s/imagem_cinza.jpg" height="480"/>
+				<figcaption>Escala de cinza</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/1/fernando_s/imagem_equalizada.jpg" height="480"/>
+				<figcaption>Escala de cinza Equalizada</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/1/fernando_s/histograma_n_equalizado.png" height="480"/>
+				<figcaption>Histograma Antes da Equalização</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/1/fernando_s/histograma_equalizado.png" height="480"/>
+				<figcaption>Histograma Após Equalização</figcaption>
+			</figure>
+		
+
+		<h4>Leonardo</h4>
+
+			<figure>
+				<img src="media/1/leonardo/leonardo.png" height="480"/>
+				<figcaption>Original</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/1/leonardo/imagem_cinza.jpg" height="480"/>
+				<figcaption>Escala de cinza</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/1/leonardo/imagem_equalizada.jpg" height="480"/>
+				<figcaption>Escala de cinza Equalizada</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/1/leonardo/histograma_before.png" height="480"/>
+				<figcaption>Histograma Antes da Equalização</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/1/leonardo/histograma_after.png" height="480"/>
+				<figcaption>Histograma Após Equalização</figcaption>
+			</figure>
+		
+		<h4>Carta de Magic</h4>
+
+			<figure>
+				<img src="media/1/magic/magic.jpg" height="480"/>
+				<figcaption>Original</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/1/magc/imagem_cinza.jpg" height="480"/>
+				<figcaption>Escala de cinza</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/1/magic/imagem_equalizada.jpg" height="480"/>
+				<figcaption>Escala de cinza Equalizada</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/1/magic/histograma_before.png" height="480"/>
+				<figcaption>Histograma Antes da Equalização</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/1/magic/histograma_after.png" height="480"/>
+				<figcaption>Histograma Após Equalização</figcaption>
+			</figure>
+		
+		<h3>2 - Calculo e equalização de histograma com imagem da câmera</h3>
+		<h4>Fernando S.</h4>
+
+			<figure>
+				<img src="media/2/fernando_s/imagem_cinza.jpg" height="480"/>
+				<figcaption>Escala de cinza</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/2/fernando_s/imagem_equalizada.jpg" height="480"/>
+				<figcaption>Escala de cinza Equalizada</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/2/fernando_s/histograma_n_equalizado.png" height="480"/>
+				<figcaption>Histograma Antes da Equalização</figcaption>
+			</figure>
+
+			<figure>
+				<img src="media/2/fernando_s/histograma_equalizado.png" height="480"/>
+				<figcaption>Histograma Após Equalização</figcaption>
+			</figure>
+
+		<h3> 3 - Binarização de imagem </h3>
+
+		<h4>Fernando S.</h4>
+
+			<figure>
+				<img src="media/1/fernando_s/eu.jpeg" height="480"/>
+				<figcaption>Original</figcaption>
+			</figure>
+			
+			<figure>
+				<img src="media/3/fernando_s/imagem_cinza.jpg" height="480"/>
+				<figcaption>Imagem cinza</figcaption>
+			</figure>
+			
+			<figure>
+				<img src="media/3/fernando_s/imagem_limiarizada.jpg" height="480"/>
+				<figcaption>Imagem binarizada</figcaption>
+			</figure>
+		
+		<h4>Leonardo</h4>
+
+			<figure>
+				<img src="media/1/leonardo/leonardo.png" height="480"/>
+				<figcaption>Original</figcaption>
+			</figure>
+			
+			<figure>
+				<img src="media/3/leonado/imagem_cinza.jpg" height="480"/>
+				<figcaption>Imagem cinza</figcaption>
+			</figure>
+			
+			<figure>
+				<img src="media/3/leonardo/imagem_limiarizada.jpg" height="480"/>
+				<figcaption>Imagem binarizada</figcaption>
+			</figure>
+		
+		<h4>Carta de Magic</h4>
+
+			<figure>
+				<img src="media/1/magic/magic.jpg" height="480"/>
+				<figcaption>Original</figcaption>
+			</figure>
+			
+			<figure>
+				<img src="media/3/magic/imagem_cinza.jpg" height="480"/>
+				<figcaption>Imagem cinza</figcaption>
+			</figure>
+			
+			<figure>
+				<img src="media/3/magic/imagem_limiarizada.jpg" height="480"/>
+				<figcaption>Imagem binarizada</figcaption>
+			</figure>
+		
+		<h3> 4 - Equalização de histograma colorido </h3>
+
+		<h4>Fernando S.</h4>
+
+			<figure>
+				<img src="media/4/fernando_s/raw_histogram.png" height="480"/>
+				<figcaption>Histograma Antes da Equalização</figcaption>
+			</figure>
+			
+			<figure>
+				<img src="media/4/fernando_s/imagem_cinza.jpg" height="480"/>
+				<figcaption>Histograma Equalizado </figcaption>
+			</figure>
+			
+			<figure>
+				<img src="media/4/fernando_s/final.png" height="480"/>
+				<figcaption>Image Original vs Imagem Equalizada</figcaption>
+			</figure>
+		
+		<h4>Leonardo<h4>
+
+			<figure>
+				<img src="media/4/leonardo/raw_histogram.png" height="480"/>
+				<figcaption>Histograma Antes da Equalização</figcaption>
+			</figure>
+			
+			<figure>
+				<img src="media/4/leonardo/imagem_cinza.jpg" height="480"/>
+				<figcaption>Histograma Equalizado </figcaption>
+			</figure>
+			
+			<figure>
+				<img src="media/4/leonardo/final.png" height="480"/>
+				<figcaption>Image Original vs Imagem Equalizada</figcaption>
+			</figure>
+
+		<h4>Carta de Magic</h4>
+
+			<figure>
+				<img src="media/4/magic/raw_histogram.png" height="480"/>
+				<figcaption>Histograma Antes da Equalização</figcaption>
+			</figure>
+			
+			<figure>
+				<img src="media/4/magic/imagem_cinza.jpg" height="480"/>
+				<figcaption>Histograma Equalizado </figcaption>
+			</figure>
+			
+			<figure>
+				<img src="media/4/magic/final.png" height="480"/>
+				<figcaption>Image Original vs Imagem Equalizada</figcaption>
+			</figure>
+
+
+		<h2> 5. Conclusões e Comentários Finais</h2>
+
+		<p>Este laboratório de Processamento de Vídeo proporcionou uma oportunidade de aprofundar o conhecimento teórico e prático sobre a conversão de cores, aplicação de filtros e técnicas de processamento 
+		de imagem e vídeo. Através da utilização de materiais como o computador, a biblioteca OpenCV e a webcam, foi possível desenvolver e executar experimentos práticos, obtendo resultados 
+		satisfatórios. O estudo teórico e a aplicação prática dos conceitos permitiram compreender a importância das conversões de cores, rastreamento de objetos e aplicação de filtros para melhorar 
+		a qualidade visual das imagens resultantes. O laboratório contribuiu para a formação de uma base sólida no processamento de vídeo, capacitando os participantes a aplicar esses conhecimentos 
+		em uma variedade de contextos práticos.</p>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+	<script>
+		hljs.highlightAll();
+	</script>
+	</body>
+</html>
 

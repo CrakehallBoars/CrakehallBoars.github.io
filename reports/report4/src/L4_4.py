@@ -12,7 +12,7 @@ def plot_bgr_histogram(image: np.ndarray, filename: str) -> None:
     plt.savefig(filename)
 
 # Leitura da imagem
-image_path = "../media/1/leonardo/leonardo.png"  
+image_path = "../media/1/magic/magic.jpg"  
 
 # Verificar se o arquivo existe
 if not cv2.haveImageReader(image_path):
@@ -44,6 +44,3 @@ plot_bgr_histogram(equalized_image, "equalized_histogram.png")
 final_image = np.hstack((image, equalized_image))
 
 cv2.imwrite("final.png", final_image)
-
-
-

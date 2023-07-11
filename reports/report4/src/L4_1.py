@@ -17,7 +17,7 @@ def plot_histogram(image, title, save_path=None):
         plt.show()
 
 # Leitura da imagem
-image_path = "../media/fernando/eu.jpg"  
+image_path = "../media/1/magic/magic.jpg"  
 
 # Verificar se o arquivo existe
 if not cv2.haveImageReader(image_path):
