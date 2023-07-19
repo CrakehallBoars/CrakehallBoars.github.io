@@ -1,0 +1,197 @@
+<html>
+	<head>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+
+	</head>
+
+	<body>
+		<h1> Relatório lab 5 </h1>
+
+		<h2> Grupo </h2>
+
+		<p>Leonardo Di Credico </p>
+
+		<p>Anthony Hlebania</p>
+
+		<p>Fernando Hiroaki Suzuki</p>
+
+		<p>Fernando Astolfo Dos Santos</p>
+		
+		<h2> 1.Introdução </h2>
+		<h2> 2.Fundamentos Básicos</h2>
+
+		<h3>
+
+		<h2> 3.Materiais e Métodos</h2>
+
+		<h3>1. Ambiente dos experimentos</h3>
+
+		<p>a) Sistema Operacional:</p>
+		<p>- Ubuntu (versão 20.22)</p>
+
+		<p>b) Equipamentos:</p>
+		<p>- Computador com webcam integrada</p>
+		<p>- Monitor de exibição</p>
+
+		<h3>2. Programas e Bibliotecas utilizadas</h3>
+
+		<p>a) Programas:</p>
+		<p>- Python: Linguagem de programação utilizada para desenvolver os programas.</p>
+		
+		<p>b) Bibliotecas:</p>
+		<p>- OpenCV (versão 4.7.0): Biblioteca principal para manipulação de imagens e vídeos.</p>
+		<p>- NumPy (versão 1.21.5): Biblioteca para operações numéricas e processamento de arrays.</p>
+		<p>- Matplotlib (versão 3.7.2): Biblioteca para plotagem de gráficos.</p>
+
+		<h3>3. Código Fonte</h3>
+
+		<h4> 1 - Detecção de movimento em vídeos </h4>
+
+        <p>O código abaixo le um arquivo de vídeo, e detecta movimento entre os pares de frames dentro dele. Onde há
+            movimento detectado ele desenha um retangulo no vídeo de saída
+			<pre><code class="python">
+import cv2
+
+# Capturando o vídeo
+capture = cv2.VideoCapture("mov_obj_rapido.avi")
+
+# Obtendo as dimensões do vídeo
+width = int(capture.get(cv2.CAP_PROP_FRAME_WIDTH))
+height = int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+# Obtendo a taxa de quadros do vídeo original
+fps = 15
+
+# Configurando a gravação de vídeo
+output = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))
+
+while capture.isOpened():
+    _, img_1 = capture.read()
+    _, img_2 = capture.read()
+
+    diff = cv2.absdiff(img_1, img_2)
+    diff_gray = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
+    diff_blur = cv2.GaussianBlur(diff_gray, (5, 5), 0)
+    _, thresh_bin = cv2.threshold(diff_blur, 20, 255, cv2.THRESH_BINARY)
+
+    contours, hierarchy = cv2.findContours(thresh_bin, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+    for contour in contours:
+        x, y, w, h = cv2.boundingRect(contour)
+        if cv2.contourArea(contour) > 300:
+            cv2.rectangle(img_1, (x, y), (x+w, y+h), (0, 255, 0), 2)
+
+    cv2.imshow("Detecting Motion...", img_1)
+
+    # Gravando o frame atual no vídeo de saída
+    output.write(img_1)
+
+    if cv2.waitKey(100) == 13:
+        break
+
+# Liberando os recursos
+capture.release()
+output.release()
+cv2.destroyAllWindows()
+			</code></pre>
+		</p>
+
+		<h4> 2 - Detecção de movimento na camera </h4>
+
+        <p>O código abaixo le a entrada da camera, e detecta movimento entre os pares de frames dentro dele. Onde há
+            movimento detectado ele desenha um retangulo no vídeo de saída. Além disso exibe na tela tanto a leitura
+            da camera quanto a leitura com os movimentos detectados indicados. </p>
+
+			<pre><code class="python">
+import cv2
+
+# Objeto da camera
+cam = cv2.VideoCapture(0)
+
+# Obtendo as dimensões do vídeo da camera
+width = int(cam.get(cv2.CAP_PROP_FRAME_WIDTH))
+height = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+fps = 15
+
+# Configurando a gravação de vídeo
+output = cv2.VideoWriter('../media/camera_tracked.mp4', cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))
+
+while True:
+    _, img_1 = cam.read()
+    _, img_2 = cam.read()
+    
+    # Exibe o frame sem detecção
+    cv2.imshow("Original",img_1)
+
+    # Detecção de movimento
+    diff = cv2.absdiff(img_1, img_2)
+    diff_gray = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
+    diff_blur = cv2.GaussianBlur(diff_gray, (5, 5), 0)
+    _, thresh_bin = cv2.threshold(diff_blur, 20, 255, cv2.THRESH_BINARY)
+
+    contours, hierarchy = cv2.findContours(thresh_bin, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+    # Desenha os contornos no frame
+    for contour in contours:
+        x, y, w, h = cv2.boundingRect(contour)
+        if cv2.contourArea(contour) > 300:
+            cv2.rectangle(img_1, (x, y), (x+w, y+h), (0, 255, 0), 2)
+
+    # Exibe o frame com a detecção 
+    cv2.imshow("Detecção de movimento", img_1)
+
+    # Gravando o frame atual no vídeo de saída
+    output.write(img_1)
+
+    # Termina o programa ao apertar Enter
+    if cv2.waitKey(100) == 13:
+        break
+
+# Liberando os recursos
+cam.release()
+output.release()
+cv2.destroyAllWindows()
+			</code></pre>	
+
+			</p>
+		<h2> 4.Resultados e Análises</h2>
+		<h3> 1 - Detecção de movimento em vídeos </h3>
+        <h4> Movimento Lento</h4>
+            <video width="480" controls>
+                <source src="media/output_lento.mp4" type="video/mp4">
+            </video> 
+        
+        <h4> Movimento Rápido</h4>
+            <video width="480"controls>
+                <source src="media/output_rapido.mp4" type="video/mp4">
+            </video> 
+
+		<h3> 2 - Detecção de movimento na camera </h3>
+		<h4>Fernando S.</h4>
+
+		<h4>Fernando A.</h4>
+		
+		<h4>Leonardo</h4>
+            <video width="480" controls>
+                <source src="media/leonardo.mp4" type="video/mp4">
+            </video> 
+
+		<h4>Fernando A.</h4>
+
+		<h4>Objeto Colorido</h4>
+            <video width="480" controls>
+                <source src="media/objeto.mp4" type="video/mp4">
+            </video> 
+
+		<h2> 5. Conclusões e Comentários Finais</h2>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+	<script>
+		hljs.highlightAll();
+	</script>
+	</body>
+</html>
+
