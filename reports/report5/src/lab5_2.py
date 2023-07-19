@@ -10,7 +10,7 @@ height = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
 fps = 15
 
 # Configurando a gravação de vídeo
-output = cv2.VideoWriter('../a.mp4', cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))
+output = cv2.VideoWriter('../media/camera_tracked.mp4', cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))
 
 while True:
     _, img_1 = cam.read()
