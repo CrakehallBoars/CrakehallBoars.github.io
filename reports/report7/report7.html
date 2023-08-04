@@ -172,31 +172,61 @@ if cv2.waitKey(0) & 0xff == 27:
 			</code></pre>
 		</p>
 
-		<h4> 1.3 Deteção de Features pelo método  Introduction to SIFT (Scale-Invariant Feature Transform). </h4>
+		<h4> 2.1 Deteção de objetos utilizando o modelo Haarcascade Frontal Face pela webcam (utilizado nos exercícios).</h4>
 
-        <p>Este código utiliza o OpenCV (cv2) para aplicar o algoritmo SIFT (Scale-Invariant Feature Transform) em uma imagem e, 
-		em seguida, desenha os keypoints (pontos de interesse) encontrados na imagem original. A imagem resultante, com 
-		os keypoints marcados, é salva como 'img2_sift.jpg'. O algoritmo SIFT é frequentemente usado para encontrar 
-		pontos de interesse robustos em imagens, que podem ser usados em tarefas como correspondência de imagens e 
-		reconhecimento de objetos.
+        <p>O código utiliza o Cascade Classifier do OpenCV para detectar faces em tempo real através da webcam. Após 
+		capturar os frames de vídeo, ele processa cada imagem em escala de cinza e aplica o modelo pré-treinado 
+		para identificar as faces. O programa desenha retângulos em torno das faces detectadas, 
+		possibilitando a detecção de múltiplas faces simultaneamente. Além disso, oferece interação com o usuário 
+		através do teclado: pressionando 's', é possível salvar a imagem com os retângulos desenhados. Para 
+		encerrar o programa, basta pressionar 'Esc', liberando a captura da webcam e fechando a janela de 
+		exibição. Essa aplicação prática demonstra a eficiência do Cascade Classifier em aplicações de visão 
+		computacional.
 			<pre><code class="python">
-import numpy as np
-import cv2 as cv
+import cv2
 
-img = cv.imread('img2.jpg')
-gray= cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+# Carrega a cascade treinada para detecção de faces:
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-sift = cv.SIFT_create()
-kp = sift.detect(gray,None)
+# Inicializa a webcam:
+cap = cv2.VideoCapture(0)
 
-img=cv.drawKeypoints(gray,kp,img)
+while True:
+    # Lê o frame da webcam:
+    ret, frame = cap.read()
 
-cv.imwrite('img2_sift.jpg',img)
+    # Converte o frame para escala de cinza:
+    grey = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
+    # Aplica a detecção de faces:
+    faces = face_cascade.detectMultiScale(grey, 1.3, 5)
+
+    # Desenha retângulos nos pontos detectados:
+    for (x, y, w, h) in faces:
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
+
+    # Exibe o frame com a detecção em uma janela ao vivo:
+    cv2.imshow('Faces Detection', frame)
+
+    # Verifica se a tecla 's' foi pressionada para salvar a imagem:
+    key = cv2.waitKey(1)
+    if key == ord('s'):
+        # Desenha os retângulos também na imagem a ser salva:
+        for (x, y, w, h) in faces:
+            cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
+        cv2.imwrite('webcam_frontalface.png', frame)
+        break
+    elif key == 27:  # Verifica se a tecla 'Esc' foi pressionada para sair do loop:
+        break
+
+# Libera a captura da webcam e fecha a janela:
+cap.release()
+cv2.destroyAllWindows()
+				
 			</code></pre>
 		</p>
 
-		<h4> 2.1 Deteção de Features com a leitura da webcam pelo método Harris Corner Detection. </h4>
+		<h4> 2.1  Deteção de objetos utilizando o modelo Haarcascade Full Body pela webcam (não utilizado nos exercícios). </h4>
 
         <p>Este código utiliza o OpenCV para acessar a câmera do computador (webcam) e realizar a detecção de cantos de Harris 
 		em tempo real. Os cantos são marcados em vermelho na imagem exibida. Quando a tecla Enter é pressionada, uma 
