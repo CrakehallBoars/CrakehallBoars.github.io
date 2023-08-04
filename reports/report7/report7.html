@@ -226,11 +226,6 @@ cv2.destroyAllWindows()
 			</code></pre>
 		</p>
 
-		<p>Com os resultados, obtidos, podemos notar que o o modelo teve melhor desempenho para as fotos que 
-		envolviam seres humanos. As detecções não funcionaram nas imagens dos avatares do grupo. Além disso, 
-		o modelo Haarcascade Frontal Face teve um resultado melhor se comparado ao Haarcascade Fullbody,
-		conseguindo detectar os rostos de todos os integrantes do grupo.</p>
-		
 		<h2> 4.Resultados e Análises</h2>
 
 		<h3> 1.1 Deteção de objetos utilizando o modelo Haarcascade Frontal Face (utilizado nos exercícios). </h3>
@@ -274,6 +269,27 @@ cv2.destroyAllWindows()
 		<figure>
 			<img src="src/2/webcam_frontalface.png" height="480"/>
 	    	</figure>
+
+	<h4>Análise<h4>
+
+		<p>Durante a execução do código de detecção de faces com o Cascade Classifier, observamos que, apesar de sua 
+			eficiência em detectar faces em tempo real, o desempenho não foi tão satisfatório em algumas situações 
+			específicas.</p>
+
+		<p>Em cenários ideais, onde as faces estão bem iluminadas, com uma orientação frontal e um contraste 
+			significativo em relação ao plano de fundo, o Cascade Classifier apresentou um desempenho muito bom. As 
+			detecções foram precisas e rápidas, com a delimitação dos retângulos em torno das faces sendo feita de 
+			forma adequada.</p>
+
+		<p>No entanto, notamos algumas limitações quando as condições de iluminação não eram ideais ou quando as faces 
+			estavam parcialmente obstruídas. Em tais casos, o Cascade Classifier teve dificuldades em detectar as 
+			faces corretamente, resultando em falsos negativos ou em retângulos que não englobavam toda a face. </p>
+
+		<p>Além disso, a detecção da imagem dos avatares acabou não funcionando com nenhum dos modelos utilizados.
+
+		<p>Em suma, embora o Cascade Classifier tenha se mostrado uma abordagem eficiente para a detecção de faces em 
+			tempo real em cenários ideais, seu desempenho pode ser limitado em condições adversas, como baixa 
+			iluminação, obstruções parciais e alteração nos objetos a serem detectados.</p>
 			
 		<h2> 5. Conclusões e Comentários Finais</h2>
 
