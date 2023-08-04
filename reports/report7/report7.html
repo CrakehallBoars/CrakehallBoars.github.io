@@ -172,7 +172,7 @@ if cv2.waitKey(0) & 0xff == 27:
 			</code></pre>
 		</p>
 
-		<h4> 2.1 Deteção de objetos utilizando o modelo Haarcascade Frontal Face pela webcam (utilizado nos exercícios).</h4>
+		<h4> 2.1 Deteção de objetos utilizando o modelo Haarcascade Frontal Face pela webcam.</h4>
 
         <p>O código utiliza o Cascade Classifier do OpenCV para detectar faces em tempo real através da webcam. Após 
 		capturar os frames de vídeo, ele processa cada imagem em escala de cinza e aplica o modelo pré-treinado 
@@ -225,158 +225,6 @@ cv2.destroyAllWindows()
 				
 			</code></pre>
 		</p>
-
-		<h4> 2.1  Deteção de objetos utilizando o modelo Haarcascade Full Body pela webcam (não utilizado nos exercícios). </h4>
-
-        <p>Este código utiliza o OpenCV para acessar a câmera do computador (webcam) e realizar a detecção de cantos de Harris 
-		em tempo real. Os cantos são marcados em vermelho na imagem exibida. Quando a tecla Enter é pressionada, uma 
-		foto do frame atual é salva como 'img_harris.jpg'. Para sair do programa, basta pressionar a tecla 'q' durante 
-		a exibição da imagem. Após a conclusão, a captura da câmera é liberada e todas as janelas são fechadas.
-			<pre><code class="python">
-import numpy as np
-import cv2 as cv
-
-cap = cv.VideoCapture(0)
-
-if not cap.isOpened():
-    print("Cannot open camera")
-    exit()
-
-while True:
-    # Capture frame-by-frame
-    ret, frame = cap.read()
-    # if frame is read correctly ret is True
-    if not ret:
-        print("Can't receive frame (stream end?). Exiting ...")
-        break
-
-    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-    gray = np.float32(gray)
-    dst = cv.cornerHarris(gray, 2, 3, 0.04)
-    dst = cv.dilate(dst, None)
-
-    frame[dst > 0.01 * dst.max()] = [0, 0, 255]
-
-    # Display the resulting frame
-    cv.imshow('frame', frame)
-
-    # Salva a foto do frame quando a tecla Enter for pressionada 
-    if cv.waitKey(1) == 13:
-        cv.imwrite('img_harris.jpg', frame)
-        break
-
-    # Check if the 'q' key is pressed to quit the loop
-    if cv.waitKey(1) == ord('q'):
-        break
-
-# When everything is done, release the capture
-cap.release()
-cv.destroyAllWindows()
-
-			</code></pre>
-		</p>
-
-		<h4> 2.2 Deteção de Features com a leitura da webcam pelo método Shi-Tomasi Corner Detector & Good Features to 
-			Track. </h4>
-
-        <p>Este código utiliza o OpenCV para acessar a câmera do computador (webcam) e realizar a detecção de cantos usando o 
-		algoritmo Shi-Tomasi em tempo real. Os cantos detectados são marcados em cada frame exibido. Quando a tecla 
-		Enter é pressionada, uma foto do frame atual é salva como 'img_shi_tomasi.jpg'. Para sair do programa, basta 
-		pressionar a tecla 'q' durante a exibição da imagem. Após a conclusão, a captura da câmera é liberada e todas 
-		as janelas são fechadas.
-			<pre><code class="python">
-import numpy as np
-import cv2 as cv
-
-cap = cv.VideoCapture(0)
-
-if not cap.isOpened():
-    print("Cannot open camera")
-    exit()
-
-while True:
-    # Capture frame-by-frame
-    ret, frame = cap.read()
-    # if frame is read correctly ret is True
-    if not ret:
-        print("Can't receive frame (stream end?). Exiting ...")
-        break
-
-    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-    corners = cv.goodFeaturesToTrack(gray,25,0.01,10)
-    corners = np.int0(corners)
-
-    for i in corners:
-        x,y = i.ravel()
-        cv.circle(frame,(x,y),3,255,-1)
- 
-    # Display the resulting frame
-    cv.imshow('frame', frame)
-
-    # Salva a foto do frame quando a tecla Enter for pressionada 
-    if cv.waitKey(1) == 13:
-        cv.imwrite('img_shi_tomasi.jpg', frame)
-        break
-
-    # Check if the 'q' key is pressed to quit the loop
-    if cv.waitKey(1) == ord('q'):
-        break
-
-# When everything is done, release the capture
-cap.release()
-cv.destroyAllWindows()
-			</code></pre>
-		</p>
-
-		<h4> 2.3 Deteção de Features com a leitura da webcam pelo método  Introduction to SIFT 
-			(Scale-Invariant Feature Transform). </h4>
-
-        <p>Este código utiliza o OpenCV para acessar a câmera do computador (webcam) e realizar a detecção de pontos de 
-		interesse usando o algoritmo SIFT (Scale-Invariant Feature Transform) em tempo real. Os pontos de interesse 
-		detectados são marcados em cada frame exibido. Quando a tecla Enter é pressionada, uma foto do frame atual é 
-		salva como 'img_sift.jpg'. Para sair do programa, basta pressionar a tecla 'q' durante a exibição da imagem. 
-		Após a conclusão, a captura da câmera é liberada e todas as janelas são fechadas.
-			<pre><code class="python">
-import numpy as np
-import cv2 as cv
-
-cap = cv.VideoCapture(0)
-
-if not cap.isOpened():
-    print("Cannot open camera")
-    exit()
-
-while True:
-    # Capture frame-by-frame
-    ret, frame = cap.read()
-    # if frame is read correctly ret is True
-    if not ret:
-        print("Can't receive frame (stream end?). Exiting ...")
-        break
-
-    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-    sift = cv.SIFT_create()
-    kp = sift.detect(gray,None)
-
-    frame=cv.drawKeypoints(gray,kp,frame)
- 
-    # Display the resulting frame
-    cv.imshow('frame', frame)
-
-    # Salva a foto do frame quando a tecla Enter for pressionada 
-    if cv.waitKey(1) == 13:
-        cv.imwrite('img_sift.jpg', frame)
-        break
-
-    # Check if the 'q' key is pressed to quit the loop
-    if cv.waitKey(1) == ord('q'):
-        break
-
-# When everything is done, release the capture
-cap.release()
-cv.destroyAllWindows()
-			</code></pre>
-		</p>
 		
 		<h2> 4.Resultados e Análises</h2>
 
@@ -414,7 +262,13 @@ cv.destroyAllWindows()
 			<img src="src/1/avatares_fullbody.png" height="480"/>
 	    	</figure>
 
+		<h3> 2.1 Deteção de objetos utilizando pela leitura da webcam. </h3>
+
+	<h4> Haarcascade Frontal Face </h4>
 			
+		<figure>
+			<img src="src/2/webcam_frontalface.png" height="480"/>
+	    	</figure>
 			
 		<h2> 5. Conclusões e Comentários Finais</h2>
 
