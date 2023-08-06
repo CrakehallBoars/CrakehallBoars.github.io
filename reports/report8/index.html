@@ -20,51 +20,40 @@
 		
 		<h2> 1.Introdução </h2>
 
-		<p>O presente relatório descreve o laboratório realizado na disciplina de Processamento de Vídeo, com foco 
-			na detecção de objetos utilizando a técnica de Cascade Classifier. A detecção de objetos é uma 
-			área fundamental da visão computacional, com aplicações abrangentes em diversos setores, desde a 
-			segurança até a automação industrial.</p>
+		<p>Este relatório descreve o laboratório realizado na disciplina de Processamento de Vídeo, com foco no 
+			estudo do rastreamento de objetos. O objetivo é compreender as técnicas e conceitos empregados 
+			nessa área por meio dos tutoriais (A) e (B), que abordam o rastreamento usando a biblioteca 
+			OpenCV em Python. Além disso, exploramos o método GOTURN, baseado em aprendizado profundo, 
+			por meio do tutorial (C). O laboratório envolveu a implementação prática dos conhecimentos 
+			adquiridos usando os programas "lab8a_.py" e, possivelmente, o "lab8b_.py" baixados da pasta Lab8 
+			no Moodle.</p>
 
-		<p>Ao longo do laboratório, foram estudados conceitos teóricos essenciais sobre detecção de objetos com o 
-			Cascade Classifier, compreendendo a teoria por trás do funcionamento dessa técnica e sua 
-			implementação prática. Além disso, foram explorados arquivos XML contendo modelos pré-treinados 
-			para a detecção de objetos comuns, como rostos, olhos e sorrisos.</p>
-		
-		<p>Este relatório detalhará o estudo realizado durante o laboratório, descrevendo a teoria do Cascade Classifier,
-			os passos de implementação dos programas e os resultados alcançados. Também serão apresentadas as 
-			conclusões e considerações sobre o desempenho e as aplicações práticas da detecção de objetos por meio 
-			dessa técnica.</p>
+		<p>O rastreamento de objetos é uma tarefa fundamental em diversas aplicações de visão computacional, como 
+			vigilância, automação e realidade aumentada. Neste relatório, abordaremos os resultados e a 
+			análise dos tutoriais estudados e dos programas executados, destacando a eficiência e eficácia 
+			das técnicas de rastreamento aprendidas. A compreensão desses conceitos é essencial para enfrentar 
+			desafios práticos relacionados ao rastreamento de objetos em cenários reais, tornando este 
+			laboratório uma etapa valiosa em nossa jornada acadêmica.</p>
 		
 		<h2> 2.Fundamentos Básicos</h2>
 
-		<p>A detecção de objetos é uma das principais tarefas na área de visão computacional. Trata-se de 
-			identificar a presença e a localização de objetos específicos dentro de uma imagem ou sequência 
-			de vídeo. Essa tarefa é fundamental em muitos campos, como reconhecimento facial, monitoramento 
-			de segurança, condução autônoma, entre outros. O Cascade Classifier é uma abordagem eficiente para 
-			a detecção de objetos em tempo real, especialmente quando se trata de objetos com características 
-			bem definidas, como rostos humanos. A técnica se baseia em classificadores em cascata, que são 
-			organizados hierarquicamente e empregam recursos de Haar para realizar a detecção de maneira 
-			rápida e precisa.</p>
+		<p>O rastreamento de objetos é uma técnica essencial em visão computacional que tem como objetivo detectar 
+			e acompanhar a trajetória de objetos em sequências de imagens ou vídeos. Seus fundamentos básicos 
+			são fundamentais para entendermos como essa tarefa é executada e como as bibliotecas como o OpenCV
+			nos auxiliam nesse processo.</p>
 		
-		<p>As características de Haar são elementos retangulares que representam a intensidade de uma região específica 
-			em uma imagem. Elas são calculadas usando a diferença entre a soma de pixels em regiões retangulares 
-			adjacentes. Essas características são eficientes para descrever a variação de intensidade em diferentes
-			partes de um objeto.</p>
+		<p>Em sua essência, o rastreamento de objetos envolve três etapas principais: detecção do objeto, 
+			inicialização do rastreamento e atualização contínua da posição do objeto ao longo do tempo. A 
+			detecção do objeto é geralmente realizada por meio de algoritmos de detecção de características 
+			ou de aprendizado de máquina, que identificam regiões de interesse nas imagens. A partir daí, o 
+			rastreador é inicializado para acompanhar o objeto nessas regiões ao longo dos quadros 
+			subsequentes.</p>
 		
-		<p>O Cascade Classifier consiste em uma sequência de classificadores organizados em cascata, onde cada 
-			estágio é responsável por decidir se uma região da imagem contém ou não o objeto de interesse. 
-			Cada classificador é uma árvore de decisão que utiliza recursos de Haar para realizar a 
-			classificação. A grande vantagem dos classificadores em cascata é que eles podem descartar 
-			rapidamente as regiões que não contêm o objeto, reduzindo drasticamente a quantidade de cálculos 
-			necessários para a detecção. Isso torna a abordagem muito eficiente e adequada para aplicações em 
-			tempo real.</p>
-		
-		<p>Uma das principais vantagens do Cascade Classifier é a disponibilidade de modelos pré-treinados para a 
-			detecção de objetos comuns, como rostos, olhos, sorrisos, entre outros. Esses modelos são arquivos 
-			XML que contêm as informações necessárias para o funcionamento dos classificadores em cascata. Os 
-			modelos pré-treinados permitem que os desenvolvedores utilizem a detecção de objetos em suas 
-			aplicações sem a necessidade de treinar um modelo do zero, economizando tempo e recursos 
-			computacionais.</p>
+		<p>Para garantir o sucesso do rastreamento, diversos desafios devem ser enfrentados, como a oclusão 
+			parcial ou total do objeto, mudanças de escala, iluminação variável e ruídos. Para lidar com 
+			essas situações, existem várias técnicas e algoritmos avançados, como os baseados em modelos, 
+			métodos de correlação e até mesmo abordagens de aprendizado profundo, como o GOTURN mencionado 
+			nos tutoriais.</p>
 		
 		<h3>
 
