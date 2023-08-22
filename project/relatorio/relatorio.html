@@ -79,6 +79,140 @@
 
 		<h3>2.5. Análise técnica</h3>
 
+		<p>
+			Para avaliar de forma objetiva, foram criados 2 conjuntos de testes automáticos, através deles
+			testamos múltiplas formas de comparação das imagens da câmera com as do banco de dados, abaixo temos os resultados.
+
+			<h4>Testes de identificação</h4>
+			<p>O objetivo é validar apenas o sistema de identificação de imagens em situação ideal, com imagens bem cortadas e em boa qualidade.</p>
+			 <table>
+				  <tr>
+				    <th>Métodod e Comparação</th>
+				    <th>Taxa de Acerto (%)</th>
+				    <th>Tempo para identificar 22 amostras (s)</th>
+				  </tr>
+				  <tr>
+				    <td>WHash</td>
+				    <td>68.15</td>
+					<td>2.123</td>
+				  </tr>
+				  <tr>
+				    <td>PHashSimple</td>
+				    <td>54.55</td>
+					<td>0.595</td>
+				  </tr>
+				  <tr style="background-color: #33ff00;">
+				    <td>PHash</td>
+				    <td>100</td>
+					<td>0.786</td>
+				  </tr>
+				  <tr>
+				    <td>DHashVertical</td>
+				    <td>72.73</td>
+					<td>0.522</td>
+				  </tr>
+				  <tr style="background-color: #33ff00;">
+				    <td>DHash</td>
+				    <td>100</td>
+					<td>0.526</td>
+				  </tr>
+				  <tr>
+				    <td>CropResistantHash</td>
+				    <td>90.91</td>
+					<td>10.278</td>
+				  </tr>
+				  <tr>
+				    <td>AverageHash</td>
+				    <td>90.91</td>
+					<td>0.837</td>
+				  </tr>
+				  <tr>
+				    <td>ColorHash</td>
+				    <td>31.82</td>
+					<td>0.827</td>
+				  </tr>
+				  <tr>
+				    <td>Sift</td>
+				    <td>81.82</td>
+					<td>2.469</td>
+				  </tr>
+			</table>
+
+
+		</p>
+
+			<h4>Testes completos</h4>
+			<p>O objetivo é testar o sistema completa em uma situação mais próxima da real, recebendo uma imagem com várias cartas e a posição da carta alvo. Testa tanto a identificação quanto a separação.</p>
+			 <table>
+				  <tr>
+				    <th>Métodod e Comparação</th>
+				    <th>Taxa de Acerto (%)</th>
+				    <th>Tempo para identificar 47 amostras (s)</th>
+				  </tr>
+				  <tr>
+				    <td>WHash</td>
+				    <td>32.19</td>
+					<td>2.210</td>
+				  </tr>
+				  <tr>
+				    <td>PHashSimple</td>
+				    <td>19.93</td>
+					<td>1.764</td>
+				  </tr>
+				  <tr>
+				    <td>PHash</td>
+				    <td>38.23</td>
+					<td>1.818</td>
+				  </tr>
+				  <tr>
+				    <td>DHashVertical</td>
+				    <td>37.37</td>
+					<td>1.645</td>
+				  </tr>
+				  <tr>
+				    <td>DHash</td>
+				    <td>47.09</td>
+					<td>1.664</td>
+				  </tr>
+				  <tr>
+				    <td>CropResistantHash</td>
+				    <td>31.37</td>
+					<td>16.912</td>
+				  </tr>
+				  <tr>
+				    <td>AverageHash</td>
+				    <td>27.47</td>
+					<td>1.653</td>
+				  </tr>
+				  <tr>
+				    <td>ColorHash</td>
+				    <td>6.72</td>
+					<td>1.955</td>
+				  </tr>
+				  <tr  style="background-color: #33ff00;">
+				    <td>Sift</td>
+				    <td>82.02</td>
+					<td>21.258</td>
+				  </tr>
+			</table>
+			
+			<p>
+				Durante os testes de identificação, o método PHash e DHash tiveram resultados excelentes, com 100% de acerto.
+				Entretanto, durante os testes completos, obtiveram uma taxa de menos de 50%, nestes testes o maior resultado
+				foi obtido, disparadamente, pelo método Sift, com 82.02% de taxa de acerto. </p>
+			<p>
+				Como o teste completo reflete mais uma situação real de uso, o método Sift foi escolhido para ser usado na 
+				aplicação. Apesar dele ser muito mais lento em relação aos outros, isso não causa nenhum impacto durante o 
+				uso, esse tempo fica concetrado no calculo do sift em todos os os arquivos das imagens de referência, o
+				que acontece apenas na inicialização do programa. Durante o uso, a identificação fica em torno de 0.3s.
+
+			</p>
+			<p>
+				Mesmo com uma taxa de identificação de 82.02%, em situação reais o problema acaba tendo uma performance
+				aparentemente menor, pois a <b>iluminação</b>, <b>rotação</b> e <b>reflexo</b> das cartas atrapalha muito a identificação.
+			</p>
+
+		</p>
 		<h3>2.6. Lista dos arquivos</h3>
 			 <table>
 				  <tr>
