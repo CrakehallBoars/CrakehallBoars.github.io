@@ -196,7 +196,111 @@
 				<h2>Referências</h2>
 				<a href=https://spelltable.wizards.com> Spelltable</a> <br>
 		<h3>2.2. Modelagem Funcional do Sistema de Processamento Visual (MFS)</h3>
+<h2> Procedimento de Reconhecimento de cartas </h2>
 
+	<p>
+		O Diagrama abaixo mostra todos os estágios etapas previstas para a identificação de uma carta de magic
+		na camêra e a exibição de seu scan correspondente na tela.
+		<br> Os estágios podem ser divididos em 3 subsistemas: <b>Entrada/Saída</b>, <b>Separação da Carta</b>,
+		<b>Identificação da Carta</b>. 
+		<br>Na seção Arquitetura de Subsistemas eles serão explicados com mais detalhes. <br>
+
+		<br><img src='../plan/Spellboar.drawio.png' height='480'/>
+
+		<h3>Estágios</h3>
+			<ol>
+				<li>Leitura da Câmera: Enviar imagens da camera para o próximo estágio sempre que o usuário clicar na imagem.</li>
+				<li>Localização da Posição da Carta: A partir da posição clicada, identificar a região que a carta clicada está.</li>
+				<li>Remoção de Fundo: Remover o fundo e toda informação irrelevante da imagem, deixando apenas a carta.</li>
+				<li>Pré-Processamento: Aplicar técnicas de processamento de vídeo que facilitem a idenitificação da imagem no próximo estágio.</li>
+				<li>Comparação com imagens de referência: Através de uma técnica de comparação ainda a ser definida, a imagem pré processada será comparada 
+					com as imagens de referencia que a aplicação guarda(por sua vez já pré-processadas) e será determinada qual imagem
+					de referencia é a melhor correspondencia.
+				</li>
+				<li>Exibição da melhor correspondência: Localizada a melhor referencia, ela será exibida em um menu lateral 
+					na interface gráfica.
+				</li>
+
+
+			</ol>
+		
+		<h3>Arquitetura de Subsistemas</h3>
+
+		Cada subsistema terá um um objetivo e responsabilidade bem-definidos, de forma a manter o código
+		modular e organizado.
+		<br>Sendo cada um modelado por pela menos uma classe principal em arquivos separados
+
+		<h4>Entrada/Saída</h4>
+
+		Objetivo: Ler imagens da camera e exibir na tela
+		<br>Responsabilidades:
+		<ul>
+			<li>Gerenciar conexão com a camera</li>
+			<li>Detectar cliques do usuário e a posição deles</li>
+			<li>Enviar imagens da camera para o Subsistema Separação da Carta</li>
+			<li>Receber imagens do Subsistema Identificação da carta</li>
+			<li>Exibir cartas recebidas em uma região separada da interface</li>
+		</ul>
+		
+		<h4>Separação da Carta</h4>
+
+		Objetivo: Isolar a carta alvo do resto da imagem
+		<br>Responsabilidades:
+		<ul>
+			<li>Receber a carta do Subsistema Entrada/Saída</li>
+			<l1>Determinar a região da imagem ocupada pela carta</l1>
+			<li>Remover o fundo da image</li>
+			<l1>Entregar a carta isolada para o Subsistema Identificação da Carta</l1>
+		</ul>
+
+		<h4>Identificação da Carta</h4>
+
+		Objetivo: Ler imagens da camera e exibir na tela
+		<br>Responsabilidades:
+		<ul>
+			<li>Receber a imagem da carta do subsistema Separação da Carta</li>
+			<li>Aplicar o pré-processamento na imagem recebida</li>
+			<li>Armazenar o banco de dados das imagens de referencia</li>
+			<li>Sistema de comparação de imagem</li>
+			<l1>Entregar a carta de referencia para o subsistema Entrada/Saída</l1>
+		</ul>
+
+	</p>
+
+	<h3> Milestones do Desenvolvimento</h3>
+	
+		<h4> Entrada/Saída</h4>
+		<ol>
+			<li>Ler imagens da câmera e exibir na tela</li>
+			<li>Detectar Cliques e posição dos cliques</li>
+			<li>(Opcional)Usuário desenhar um quadrado de detecção da carta</li>
+			<li>Exibir cartas de referência em uma seção separada da interface</li>
+			<li>(Opcional) Permitir fixar cartas de referência favoritas</li>
+		</ol>
+		<h4> Separação da Carta</h4>
+		<ol>
+			<li>Encontrar contorno da carta</li>
+			<li>Remover o fundo fora do contorno da carta</li>
+			<li>Recortar a imagem em volta da carta</li>
+			<li>Identificar a carta alvo em um imagem com multiplas cartas</li>
+		</ol>
+		<h4> Identificação da Carta</h4>
+		<ol>
+			<li>Identificar a exata carta de referência 
+				<br><img src="../plan/ref_card.jpg" height="300"> </li>
+			<li>Identificar a exata carta de referência com riscos 
+				<br><img src="../plan/ref_card_mod.jpg" height="300"> </li>
+			<li>Identificar a foto de uma carta já recortada e bem enquadrada 
+				<br><img src="../plan/good_photo.jpg" height="300"> </li>
+			<li>Identificar a foto de uma carta já recortada mal enquadrada 
+				<br><img src="../plan/bad_photo.jpg" height="300"> </li>
+			<li>Identificar uma carta plastificada 
+				<br><img src="../plan/sleeved_photo.jpg" height="300"> </li>
+			<li>Aplicar pre-processamento para melhorar a taxa de detecção da carta</li>
+			<li>(Opcional) Armazenar as cartas em grupos para acelerar a identificação</li>
+			<li>Sistema de armazenamento de cartas de referência</li>
+		</ol>
+	
 		<h3>2.3. Cronograma efetivo do desenvolvimento do SPV</h3>
 
 		<h3>2.4. Aplicação do SPV</h3>
