@@ -51,7 +51,150 @@
 		<h2>2. Materiais e Métodos</h2>
 
 		<h3>2.1. Cenário de Aplicação (CA)</h3>
-
+			<h2>Entrevistas</h2>
+			
+				<h3>Entrevista A - Guilherme Torquato</h3>
+			
+				<p>
+					<h5>Entrevista com Guilherme Torquato, estudante de Ciência da Computação na USP São Carlos</h5>
+					<br><br><b>Leonardo</b>:
+					Bom dia, Guilherme
+					Estou participando da disciplina de Processamento de Vídeo na UFABC, precisamos fazer um projeto final com os conceitos abaixo com a ideia de alguém sem vínculo com a UFABC.
+					Você tem alguma ideia?
+			
+					<br><br><b>Guilherme</b>:
+					Bom dia, Leonardo
+					Eu jogo Magic, um jogo de carta, e existe um site do jogo que permite jogar remotamente gravando 
+					a mesa de cada um com a webcam. Além disso, ele tem um sistema que identifica cartas na 
+					imagem da webcam e exibe na tela de forma mais legível.
+					Spelltable é esse site, de uma olhada em como ele funciona.
+					<br><br>Uma ideia seria criar um sistema que identifica cartas de magic.
+			
+					<br><br><b>Leonardo</b>:
+					Porque esse programa é importante para as pessoas?
+			
+					<br><br><b>Guilherme</b>:
+					Ele permite com que pessoas joguem Magic sem que precisem se encontrar. Foi muito importante na 
+					pandemia, era a única forma das pessoas jogarem. Inclusive acho que foi criado nela mesmo, mas não tenho certeza.
+			
+					<br><br><b>Leonardo</b>:
+					O que justifica a criação de uma nova solução, sendo que esse Spelltable já existe?
+			
+					<br><br><b>Guilherme</b>:
+					Esse programa detecta muito mal as imagens, são poucas cartas você realmente consegue identificar direito com ele,
+					acaba servindo mais como um serviço pra compartilhar as câmeras.
+			
+					<br><br><b>Leonardo</b>:
+					Quais seriam as funcionalidades mínimas que nossa versão do projeto deveria ter?
+			
+					<br><br><b>Guilherme</b>:
+					Acredito que exibir a imagem da camêra na tela, quando o usuário clicar em alguma carta nessa image,
+					o programa identificar a carta e exibir uma imagem de boa qualidade da carta que ele tenha armazenado,
+					talvez um sistema de histórico de cartas reconhecidas e poder favoritar essas cartas.
+					<br><br>Se o programa conseguisse sincronizar a câmera com 4 jogadores diferentes através da internet
+					seria perfeito, mas acho que seria bem complicado de fazer.
+			
+					<br><br><b>Leonardo</b>:
+					Realmente sincronizar a internet seria mais complicado, e foge bastante do escopo da disciplina. Mas
+					acho que todo o resto é viável. Gostei da sua ideia, vou levar para o meu grupo e vamos avaliar.
+					Muito obrigado pela entrevista!
+			
+					<img src='spelltable.jpg' height='480'/>
+			
+				</p>
+			
+			
+				<h3>Entrevista B - Gabriel Ikoma</h3>
+				  
+			        </p>
+			
+				  <h5>Entrevista com Gabriel Ikoma, Meu amigo de infância.</h5>
+				  
+					<br><br><b>Anthony:</b>
+			                O que você acha do projeto que acabei de lhe apresentar?
+			
+				        <br><br><b>Gabriel:</b>
+			                O projeto é bem interessante, podemos dizer que se vocês conseguirem será revolucionário, porque pra fazer alguma coisa melhor que uma empresa bilhonária tem que ser bom mesmo.
+			
+				        <br><br><b>Anthony:</b>
+			                Você acha que este projeto é útil?
+			
+				        <br><br><b>Gabriel:</b>
+			                Gabriel: Pra ser honesto ele é semelhante a um identificardor de faces, tipo aquelas cameras de segurança dos EUA, eu acho que vai ser útil não só pro propósito que vocês estão pensando e se ficar realmente bom vocês podem até ganhar dinheiro com isso kkkkk
+			
+				        <br><br><b>Anthony:</b>
+			                kkkk Se esse for o caso você já é sócio kkkkk. Mas isso encerra nossa entrevista, muito obrigado Gabriel.
+			
+				        <br><br><b>Gabriel:</b>
+			                O prazer foi meu, espero q vocês consigam.
+			
+				        <br><br><b>Anthony:</b>
+			                Obrigado.
+				  
+			
+			Fim da entrevista.
+			
+				<h2>Contexto</h2>
+			
+					<p>Após as entrevistas decidimos que o Tema do trabalho será: <br>
+						<b>Criação de um sistema de identificação de cartas de Magic: The Gathering</b>
+					</p>
+					<p>
+					Magic: The Gathering (MTG) é um jogo de cartas colecionáveis lançado em 1993 pela Wizards of the Coast. 
+					O objetivo do jogo é derrotar o oponente reduzindo sua vida a zero ou por meio de condições de 
+					vitória específicas. Nele, cada jogador constrói seu próprio baralho antes do jogo, escolhendo 
+					entre milhares de cartas disponíveis, que representam criaturas, feitiços, terrenos e outros 
+					tipos de cartas existentes no jogo. 
+					</p>
+			
+					<p>
+						Além da forma física, o Magic: The Gathering também possui uma forma de jogo online chamada 
+						"Magic Arena" e uma forma online de jogar com as cartas físicas através de um site da própria Wizards of the Coast chamada de "Spelltable". 
+						Nessa versão, os jogadores usam seus decks físicos para jogar contra 
+						oponentes de todo o mundo através da internet. O "Spelltable" oferece uma experiência de 
+						jogo que visa se aproximar à versão física, fazendo com que os jogadores tenham diversos formatos para serem jogados.
+					</p>
+			
+					<p>
+						Para a identificação das cartas no "Spelltable"
+						os jogadores utilizam um sistema de stream que envia imagens de seus tabuleiros em tempo real para o site onde os outros jogadores podem ver 
+						todas as cartas em suas respectivas mesas tornando possível a simulação do jogo físico, fornecendo uma prova visual das 
+						ações tomadas durante a partida. Essa medida é adotada para garantir a integridade do jogo e 
+						evitar trapaças, além de aumentar a imersão no jogo.
+					</p>
+			
+					<p>
+						Embora o uso de câmeras para identificar as cartas no "Spelltable" seja uma solução prática, 
+						como em qualquer programa, pode haver problemas ocasionais e bugs. 
+						O bug mais preocupante é o que impede o sistema de ler quais cartas estão na mesa, pois geralmente a qualidade da imagem nem sempre
+						é das melhores então o recurso de scanear a carta facilita a vida dos jogadores. Isso pode ser frustrante para os jogadores, 
+						pois pode resultar em jogadas erradas por falta de conhecimento das cartas em campo.
+					</p>
+			
+				  	
+			
+			
+				<h2>Objetivo</h2>
+				<p>
+					Dessa forma, o trabalho tem como objetivo desenvolver um programa que consiga reconhecer 
+					as cartas utilizadas nas partidas online, de forma efetiva e satisfatória, utilizando 
+					os conceitos vistos na disciplina de Processamento de Vídeo.
+			
+					<br><img src='../context/card_recognition.jpg' height='480'/>
+				</p>
+			
+				 <h2>Requisitos</h2>
+				<ul>
+					<li>Exibir a entrada da câmera na tela</li>
+					<li>Detectar quando e o onde o usuário clicar na imagem na tela</li>
+					<li>Identificar Cartas naquela posição</li>
+					<li>Exibir a carta em uma lista separada, através de imagens de referência das cartas</li>
+					<li>Aplicar técnicas de processamento de vídeo para melhorar a identificação de cartas</li>
+				</ul> 
+			
+			
+				<h2>Referências</h2>
+				<a href=https://spelltable.wizards.com> Spelltable</a> <br>
 		<h3>2.2. Modelagem Funcional do Sistema de Processamento Visual (MFS)</h3>
 
 		<h3>2.3. Cronograma efetivo do desenvolvimento do SPV</h3>
