@@ -1,6 +1,23 @@
 <html>
   <head>
   	<title>Processamento de Vídeo - Relatório</title>
+	<style>
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		td, th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr:nth-child(even) {
+			background-color: #dddddd;
+		}
+</style>
   </head>
     
 	<body>
@@ -51,10 +68,10 @@
 		<h2>2. Materiais e Métodos</h2>
 
 		<h3>2.1. Cenário de Aplicação (CA)</h3>
-			<a href=project/context/application_context.html></a> <br>
+			<a href=project/context/application_context.html>CA</a> <br>
 			
 		<h3>2.2. Modelagem Funcional do Sistema de Processamento Visual (MFS)</h3>
-			<a href=project/plan/plan.html></a> <br>
+			<a href=project/plan/plan.html>MFS</a> <br>
 
 		<h3>2.3. Cronograma efetivo do desenvolvimento do SPV</h3>
 
@@ -71,14 +88,65 @@
 				  </tr>
 				  <tr>
 				    <td>src</td>
-				    <td>src</td>
-				    <td>src</td>
-				    <td>src</td>
+				    <td>main.py</td>
+					<td>Loop principal da aplicação</td>
 				  </tr>
 				  <tr>
-				    <td>Centro comercial Moctezuma</td>
-				    <td>Francisco Chang</td>
-				    <td>Mexico</td>
+				    <td>src</td>
+				    <td>interface_manager.py</td>
+					<td>Renderização da interface gráfica do programa, processamento de inputs do usuário e integração dos outros arquivos</td>
+				  </tr>
+				  <tr>
+				    <td>src</td>
+				    <td>card_separator.py</td>
+					<td>Recorte da carta selecionada.</td>
+				  </tr>
+				  <tr>
+				    <td>src</td>
+				    <td>card_identificator.py</td>
+					<td>Comparação da carta recortada com as imagens de referência.</td>
+				  </tr>
+				  <tr>
+				    <td>.</td>
+				    <td>run.sh</td>
+					<td>Comando para execução do programa</td>
+				  </tr>
+				  <tr>
+				    <td>.</td>
+				    <td>setup.sh</td>
+					<td>Instalação de dependências do programa</td>
+				  </tr>
+				  <tr>
+				  </tr>
+				  <tr>
+				    <td>tests</td>
+				    <td>card_identificator_tests.py</td>
+					<td>Testes automatizados do identificador de cartas usando fotos de alta qualidade recortadas manualmente</td>
+				  </tr>
+				  <tr>
+				    <td>tests</td>
+				    <td>full_tests.py</td>
+					<td>Testes automatizados do sistema de indentificação completo da aplicação usando fotos da webcam com diversas cartas e as coordenadas de cada carta</td>
+				  </tr>
+				  <tr>
+				    <td>card_references</td>
+				    <td>*.jpg</td>
+					<td>Multiplos arquivos .jpg representando as imagens de referência. <br>OBS: Não estão no repositório do Github</td>
+				  </tr>
+				  <tr>
+				    <td>tests/images/full_scene</td>
+				    <td>*.png</td>
+					<td>Imagens da mesa com múltiplas cartas uadas para os testes completos. <br>OBS: Não estão no repositório do Github</td>
+				  </tr>
+				  <tr>
+				    <td>tests/images/sleeved</td>
+				    <td>*.jpg</td>
+					<td>Imagens de cartas recortadas com plástico para os testes do indentificador. <br>OBS: Não estão no repositório do Github</td>
+				  </tr>
+				  <tr>
+				    <td>tests/images/unsleeved</td>
+				    <td>*.jpg</td>
+					<td>magens de cartas recortadas sem plástico para os testes do indentificador. <br>OBS: Não estão no repositório do Github</td>
 				  </tr>
 				</table> 
 
